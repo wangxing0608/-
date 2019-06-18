@@ -15,6 +15,7 @@
 void urlify(char *str, int len){
     int numOfSpaces = 0;
     int i =0, j=0;
+    //从前向后扫描字符串,找到需要替换的空格位置
     for (i=0;i<len;i++) {
         if (str[i] == ' '){
             ++numOfSpaces;       //统计字符串中的空格数
@@ -22,6 +23,7 @@ void urlify(char *str, int len){
     }
     int extendLen = len + 2 * numOfSpaces;   //添加“%20”后字符串长度
     i = extendLen -1;
+    //从后向前扫描字符串,调整字符串位置
     for (j=len-1;j>=0;j--) {
         if (str[j] != ' ') {
             str[i--] = str[j];
