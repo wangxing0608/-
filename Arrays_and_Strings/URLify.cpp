@@ -35,8 +35,8 @@ void urlify(char *str, int len){
 
 int main() {
     char str[] = "Mr John Smith    ";
-    std::cout<<"Actual string :"<<str<<std::endl;
+    std::cout<<"Actual string : "<<str<<std::endl;
     urlify(str, 13);
-    std::cout<<"URLified string :"<<str<<std::endl;
+    std::cout<<"URLified string : "<<str<<std::endl;
     return 0;
 }
