@@ -52,10 +52,10 @@ void rotateMatrix2(int **matrix, int N)
         for (int j = i; j < N-i-1; ++j)
         {
             int temp = matrix[i][j];
-            matrix[i][j] = matrix[j][N-i-1];
-            matrix[j][N-i-1] = matrix[N-i-1][j-i-1];
-            matrix[N-i-1][N-j-1] = matrix[N-j-1][i];
-            matrix[N-j-1][i] = temp;
+            matrix[i][j] = matrix[N-j-1][i];
+            matrix[N-j-1][i] = matrix[N-i-1][N-j-1];
+            matrix[N-i-1][N-j-1] = matrix[j][N-i-1];
+            matrix[j][N-i-1] = temp;
         }
     }
 }
