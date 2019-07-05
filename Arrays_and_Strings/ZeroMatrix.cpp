@@ -28,7 +28,7 @@ void nullifyCol(int **matrix, int M, int col)
 void nullifyMatrix(int **matrix, int M, int N)
 {
     bool firstRow = false;
-    // first row
+    // 如果第一行中有0元素,将firRow标志修改为true
     for (int i = 0; i < N; i++)
     {
         if (matrix[0][i] == 0)
@@ -46,16 +46,16 @@ void nullifyMatrix(int **matrix, int M, int N)
         {
             if (matrix[i][j] == 0)
             {
-                matrix[0][j] = 0;
-                nullifyThisRow = true;
+                matrix[0][j] = 0;         // 将该0元素对应的列设置为0
+                nullifyThisRow = true;    // 该行中有0元素的标志设置为true
             }
         }
+        // 含有0元素的该行设置为0
         if (nullifyThisRow)
             nullifyRow(matrix, N, i);
     }
 
-    // now we know which column to be nullify using information stored in previous step.
-    // cols first
+    // 将第一列中存储的标志为0对应的列设置为0
     for (int j = 0; j < N; ++j)
     {
         if (matrix[0][j] == 0)
@@ -64,7 +64,7 @@ void nullifyMatrix(int **matrix, int M, int N)
         }
     }
 
-    // now first row
+    // 如果原始的第一行存在0元素,将第一行设置为0
     if (firstRow)
         nullifyRow(matrix, N, 0);
 }
@@ -73,7 +73,7 @@ void printMatrix(int **matrix, int M, int N)
 {
     for (int i = 0; i < M; i++)
     {
-        for (int j = 0; j < M; j++)
+        for (int j = 0; j < N; j++)
         {
             std::cout << matrix[i][j] << " ";
         }
