@@ -109,10 +109,11 @@ void removeDups1(Node *head)
      {
          return;
      }
-     std::unordered_map<int, int> node_map;
+     std::unordered_map<int, int> node_map;   // 建立链表节点元素的hash表
      Node *prev = head;
      Node *curr = head->next;
      node_map[head->data] = 1;   // 将链表的头元素放入hash表
+     // 遍历链表头结点后面的各节点元素
      while (curr != nullptr)
      {
          // 该节点后面的节点中存在重复元素
