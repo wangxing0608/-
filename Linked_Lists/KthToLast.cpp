@@ -89,7 +89,7 @@ struct Node {
   */
   Node * kthToLastRecursive(Node *head, int k)
  {
-      int i = 0;
+      int i = 0;   // 计数器
       return kthToLastHelper(head, k, i);
  }
 
@@ -110,6 +110,7 @@ struct Node {
       Node *ptr1 = head;      // ptr1 指针指向列表后方元素
       Node *ptr2 = head;      // ptr2 指针
       int i = 0;   // 计数器
+      // 将ptr1指针先向后移动k个节点
       while (i < k && ptr1)
       {
           ptr1 = ptr1 -> next;
@@ -124,7 +125,7 @@ struct Node {
 
       while (ptr1 != nullptr)
       {
-          // 向后移动两个指针
+          // 同步向后移动两个指针
           ptr1 = ptr1 -> next;
           ptr2 = ptr2 -> next;
       }
