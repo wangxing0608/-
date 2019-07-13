@@ -43,37 +43,43 @@ void printList(Node *head)
 // 将链表中元素值大于x的插入到x之后,小于x的插入到头结点之后
 Node *partition(Node *listhead, int x)
 {
-    Node *head = nullptr;
-    Node *headInitial = nullptr;   //
+    Node *head = nullptr;          //  head 链表中的指针
+    Node *headInitial = nullptr;   //  head 链表的头结点
     Node *tail = nullptr;
-    Node *tailInitial = nullptr;
-    Node *curr = listhead;
+    Node *tailInitial = nullptr;   // tail 链表中的指针
+    Node *curr = listhead;         // tail链表的头结点
     // 遍历链表
     while (curr != nullptr)
     {
         Node *nextNode = curr -> next;
-        // 当前节点元素小于x
+        // 当前节点元素小于x,在head链表中添加节点
         if (curr -> data < x) {
+            // 如果tail链表为空,使用第一个小于x的元素初始化head链表
             if (head == nullptr) {
                 head = curr;
                 headInitial = head;
             }
+            // head链表非空, head指针指向的节点链接在head链表后
             head -> next = curr;
             head = curr;
         }
+        //  当前元素大于等于x,在tail链表中添加节点
         else {
+            // 如果tail链表为空,使用第一个小于x的元素初始化head链表
             if (tail == nullptr) {
                 tail = curr;
                 tailInitial = tail;
             }
+            // tail链表非空, tail指针指向的节点链接在head链表后
             tail -> next = curr;
             tail = curr;
         }
         curr = nextNode;
     }
+    // 原始链表遍历完后,将两个链表链接在一起
     head -> next = tailInitial;
-    tail -> next = nullptr;
-    return headInitial;
+    tail -> next = nullptr;   // tail指针指向新的链表的最后一个节点,它的尾节点为nullptr
+    return headInitial;       // 返回新的链表
 }
 
 int main()
