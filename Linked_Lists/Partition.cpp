@@ -11,7 +11,7 @@
 struct Node {
     int data;
     Node *next;
-    Node (int d): data{ d }, nect {nullptr} {}
+    Node (int d): data{ d }, next {nullptr} {}
 };
 
 void insert(Node * &head, int data)
@@ -92,7 +92,7 @@ int main()
     std::cout << "List before partition around 5:\n";
     printList(head);
     std::cout << "List after partition around 5:\n";
-    print(partition(head, 5));
+    printList(partition(head, 5));
     return 0;
 }
 
