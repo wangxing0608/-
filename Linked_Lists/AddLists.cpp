@@ -31,7 +31,7 @@ struct Node {
   */
  void printList(Node *head) {
      while (head) {
-         std::cout << head -> next << "-->";
+         std::cout << head -> data << "-->";
          head = head -> next;
      }
      std::cout << "nullptr" << std::endl;
@@ -106,7 +106,7 @@ struct Node {
 * @return list3
 */
 // 使用迭代法求两个链表表示的数值的和
-Node * addList3_recursive(Node *list1, Node *list2, int carry)
+Node * addLists_recursive(Node *list1, Node *list2, int carry)
 {
     if (list1 == nullptr && list2 == nullptr && carry == 0)
     {
@@ -121,107 +121,167 @@ Node * addList3_recursive(Node *list1, Node *list2, int carry)
     }
 
     Node *resultNode = new Node(value%10);
-    resultNode -> next = addList3_recursive(list1 ? (list1 -> next) : nullptr,
-            list2 ? (list2 -> next) : nullptr, value > 9 ? 1 :0);
+    resultNode -> next = addLists_recursive(list1 ? (list1 -> next) : nullptr,
+            list2 ? (list2 -> next) : nullptr, value > 9 ? 1 : 0);
     return resultNode;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * Follow up part:
+ * Lists are stored such that 1's digit is at tail of lists
+ * 617 ==> 6 --> 1 --> 7
+ * 295 ==> 2 --> 9 --> 5
+ */
+
+/**
+ * [padList - Helper routine for padding the shorter list]
+ * @param list [Current list]
+ * @param padding [number of padding required]
+ */
+ // 填充较短的链表,在链表头部添0
+ void padList(Node * &list, int padding)
+ {
+     for (int i = 0; i < padding; ++i)
+     {
+         insert(list, 0);
+     }
+ }
+
+ /**
+  * [length - helper routine to return length of list]
+  * @param head [list's head]
+  * @return length of the list
+  */
+ // 返回链表的长度
+ int length(Node * head)
+ {
+     int len = 0;
+     while (head)
+     {
+         len++;
+         head = head -> next;
+     }
+     return len;
+ }
+
+ Node * addLists_followup_helper(Node *list1, Node *list2, int &carry)
+ {
+     // 递归终止条件
+     if (list1 == nullptr && list2 == nullptr && carry == 0)
+     {
+         return nullptr;
+     }
+
+     // 递归调用
+     Node * result = addLists_followup_helper(list1 ? (list1 -> next) : nullptr,
+             list2 ? (list2 -> next) : nullptr, carry);
+
+     int value = carry + (list1 ? list1 -> data : 0) + (list2 ? list2 -> data : 0);
+     insert(result, value % 10);
+     carry = (value > 9) ? 1 : 0;  // 进位标志
+     return result;
+ }
+
+ /**
+  * [addLists_followup - adding list such that 1's digit is at tail (follow up part of question)]
+  * @param list1
+  * @param list2
+  * @return list3 representing sum of list1 and list2
+  */
+  Node * addLists_followup(Node *list1, Node *list2)
+ {
+      int len1 = length(list1);
+      int len2 = length(list2);
+
+      // 填充较短的链表
+      if (list1 > list2)
+      {
+          padList(list2, len1-len2);
+      }
+      else {
+          padList(list1, len2-len1);
+      }
+
+      int carry = 0;
+      Node * list3 = addLists_followup_helper(list1, list2, carry);
+      // 如果最高位有进位
+      if (carry)
+      {
+          insert(list3, carry);
+      }
+      return list3;
+ }
+
+ /**
+  * [deleteList - helper routine to delete list]
+  * @param head [head of the list]
+  */
+  void deleteList(Node * &head)
+ {
+      Node *nextNode;
+      while (head)
+      {
+          nextNode = head;
+          delete(head);
+          head = nextNode;
+      }
+ }
+
+ int main()
+ {
+      // making list1 for number 617
+      Node *list1 = nullptr;
+      insert(list1, 6);
+      insert(list1, 1);
+      insert(list1, 7);
+      std::cout << "list1: ";
+      printList(list1);
+
+      // making list2 for number 295
+     Node *list2 = nullptr;
+     insert(list2, 2);
+     insert(list2, 9);
+     insert(list2, 5);
+     std::cout << "list2: ";
+     printList(list2);
+
+     Node * list3 = addLists_iterative(list1, list2);
+     std::cout << "Iterative Solution: \n";
+     std::cout << "List3: ";
+     printList(list3);
+
+     Node * list4 = addLists_recursive(list1, list2, 0);
+     std::cout << "Iterative Solution: \n";
+     std::cout << "List4: ";
+     printList(list4);
+
+     deleteList(list1);
+     deleteList(list2);
+     deleteList(list3);
+     deleteList(list4);
+
+     std::cout << "\n\nNow follow up case, lists are stored such that 1's digit is at the tail of list\n";
+     insert(list1, 4);
+     insert(list1, 3);
+     insert(list1, 2);
+     insert(list1, 9);
+     std::cout << "List1:  ";
+     printList(list1);
+
+     insert(list2, 9);
+     insert(list2, 9);
+     insert(list2, 8);
+     std::cout << "List2:  ";
+     printList(list2);
+
+     list3 = addLists_followup(list1, list2);
+     std::cout << "Adding two above lists\n";
+     std::cout << "List3:  ";
+     printList(list3);
+
+     deleteList(list1);
+     deleteList(list2);
+     deleteList(list3);
+
+     return 0;
+ }
