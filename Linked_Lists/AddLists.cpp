@@ -128,7 +128,7 @@ Node * addLists_recursive(Node *list1, Node *list2, int carry)
 
 /**
  * Follow up part:
- * Lists are stored such that 1's digit is at tail of lists
+ * Lists are stored such that 1's digit is at the tail of list
  * 617 ==> 6 --> 1 --> 7
  * 295 ==> 2 --> 9 --> 5
  */
@@ -194,7 +194,7 @@ Node * addLists_recursive(Node *list1, Node *list2, int carry)
       int len2 = length(list2);
 
       // 填充较短的链表
-      if (list1 > list2)
+      if (len1 > len2)
       {
           padList(list2, len1-len2);
       }
@@ -221,7 +221,7 @@ Node * addLists_recursive(Node *list1, Node *list2, int carry)
       Node *nextNode;
       while (head)
       {
-          nextNode = head;
+          nextNode = head -> next;
           delete(head);
           head = nextNode;
       }
