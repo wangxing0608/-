@@ -166,82 +166,102 @@ bool isPalindromeIter2(Node *head)
     return true;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * [isPalindromeRecurHelper - Recursive approach to determine if list is palindrome]
+ * Idea is to ues two pointer left and right, we move left and right to reduce
+ * problem size in each recursive call, for a list to be palindrome, we need these two
+ * conditions to be true in each recursive call.
+ *                      a. Data of left and right should match
+ *                      b. Remaining Sub-list is palindrome
+ *  We are using function call stack for right to reach at last node and them compare
+ *  it with first node (which is left)
+ *  @param left [left pointer of sublist]
+ *  @param right [right pointer of sublist]
+ *  @return [true if sublist is palindrome, false if not]
+ */
+// 递归调用,每次问题规模减少left和right指针所指的两个节点的规模
+// 当left和right两个指针所指的节点相等并且子链表为回文链表事,该链表才满足回文链表
+bool isPalindromeRecurHelper(Node * &left, Node *right)
+{
+    //base case Stop when right becomes nullptr
+    if (right == nullptr)
+    {
+        return true;
+    }
+
+    // 子链表是否为回文链表
+    bool isPalindrome = isPalindromeRecurHelper(left, right -> next);
+    // 子链表不是回文链表
+    if (!isPalindrome)
+    {
+        return false;
+    }
+
+    // 检查left和right指针所指节点是否相等
+    isPalindrome = (left -> data == right -> data);
+
+    // 向前移动left指针
+    left = left -> next;
+    return isPalindrome;
+}
+
+bool isPalindromeRecur(Node *head)
+{
+    return isPalindromeRecurHelper(head, head);
+}
+
+int main()
+{
+    Node * head1 = nullptr;
+    insert( head1, 'a' );
+    insert( head1, 'b' );
+    insert( head1, 'c' );
+    insert( head1, 'c' );
+    insert( head1, 'b' );
+    insert( head1, 'a' );
+    std::cout << "List 1: ";
+    printList(head1);
+    if ( isPalindromeIter1(head1) ) {
+        std::cout << "List 1 is palindrome list\n";
+    } else {
+        std::cout << "List 1 is not a palindrome list\n";
+    }
+    std::cout << "List 1: ";
+    printList(head1);
+
+    Node * head2 = nullptr;
+    insert( head2, 'r');
+    insert( head2, 'a');
+    insert( head2, 'd');
+    insert( head2, 'a');
+    insert( head2, 'r');
+    std::cout << "List 2: ";
+    printList(head2);
+
+    if ( isPalindromeIter2( head2 ) ) {
+        std::cout << "List 2 is palindrome list\n";
+    } else {
+        std::cout << "List 2 is not a palindrome list\n";
+    }
+
+    std::cout << "List 2: ";
+    printList(head2);
+
+    Node * head = nullptr;
+    insert( head, 'a' );
+    insert( head, 'b' );
+    insert( head, 'c' );
+    insert( head, 'b' );
+    insert( head, 'd' );
+    std::cout << "List 3: ";
+    printList(head);
+
+    if ( isPalindromeRecur(head) ) {
+        std::cout << "List 3 is palindrome list\n";
+    } else {
+        std::cout << "List 3 is not a palindrome list\n";
+    }
+    std::cout << "List 3: ";
+    printList(head);
+    return 0;
+}
