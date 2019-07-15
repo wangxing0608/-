@@ -113,11 +113,10 @@ bool isPalindromeIter1(Node *head)
     }
 
     // 再一次翻转链表
-    reverse(middleNode)
+    reverse(middleNode);
     if (ptr2 == nullptr) {
         return true;
-    }
-    else {
+    }else {
         return false;
     }
 }
@@ -142,7 +141,7 @@ bool isPalindromeIter2(Node *head)
 
     // 存储链表中一半节点的栈
     std::stack<Node*> nodeStack;
-    while (ptr2 && ptr1 -> next;)
+    while (ptr2 && ptr1 -> next)
     {
         ptr1 = ptr1 -> next -> next;
         nodeStack.push(ptr2);
