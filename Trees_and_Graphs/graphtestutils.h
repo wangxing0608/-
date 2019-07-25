@@ -33,7 +33,7 @@ namespace TestUtils
     Graph<State> getExampleGraph2()
     {
         return createGraph<State>({"0", "1", "2", "3"},
-                                  {{"0", "1"}, {"1", "2"}, {"2", "0"}, {"3", "2"}})
+                                  {{"0", "1"}, {"1", "2"}, {"2", "0"}, {"3", "2"}});
     }
 
     template <typename State>

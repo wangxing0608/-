@@ -58,7 +58,7 @@ public:
             return childs;
         }
 
-        const std::string &name() const
+        const std::string &Name() const
         {
             return name;
         }
@@ -84,7 +84,7 @@ public:
     {
         nodes.emplace_back(std::make_shared<Node>(name));
         if (!name.empty())
-            nameNodes[name] = node.back();
+            nameNodes[name] = nodes.back();
         return nodes.back();
     }
 
@@ -93,9 +93,9 @@ public:
         return nodes[i];
     }
 
-    const std::shared_ptr<Node> &operator [] (const std::string &name) const
+    const std::shared_ptr<Node> &operator[] (const std::string &name) const
     {
-        return nameNodes.at[name];
+        return nameNodes.at(name);
     }
 
     const std::deque<std::shared_ptr<Node>> &getNodes() const
@@ -104,54 +104,11 @@ public:
     }
 
 private:
-    std::deque<shared_ptr<Node>> nodes;
+    std::deque<std::shared_ptr<Node>> nodes;
     std::unordered_map<std::string, std::shared_ptr<Node>> nameNodes;
 };
 
 template <typename State>
 using Node = std::shared_ptr<typename Graph<State>::Node>;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif //CODING_INTERVIEW_GRAPH_H
 
