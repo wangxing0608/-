@@ -17,7 +17,7 @@ public:
 
     NodeBase(const std::shared_ptr<Node> &p) : parent(p) {}
 
-    std::shared_ptr<Node> getParent
+    std::shared_ptr<Node> getParent()
     {
         return parent.lock();
     };
@@ -29,7 +29,7 @@ private:
 
 // Specialization for node containing no reference to parent
 template <typename Node>
-class NodeBase<Node, fasle>
+class NodeBase<Node, false>
 {
 public:
     NodeBase() = default;
@@ -83,7 +83,7 @@ public:
      template <typename U>
      void setLeftChild(U &&node)
      {
-        childs.first = std.forward<U>(node);
+        childs.first = std::forward<U>(node);
      }
 
      template <typename U>

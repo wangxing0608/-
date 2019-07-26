@@ -11,6 +11,7 @@
 template <typename T, bool WithParent = false, template<typename, bool> class N = Node>
 class Tree
 {
+public:
     using NodePtr = typename N<T, WithParent>::NodePtr;
 
     const NodePtr& getRoot() const

@@ -27,7 +27,7 @@ namespace TestUtils
     void printTree(const Tree<T, NodeWithParent, Node> &tree)
     {
         using NodePtr = typename Tree<T, NodeWithParent, Node>::NodePtr;
-        T minValue = std::nameric_limits<T>max(), maxValue = std::numeric_limits<T>::min();
+        T minValue = std::numeric_limits<T>::max(), maxValue = std::numeric_limits<T>::min();
 
         // Lambda function is used to hide it form externall access
         std::function<size_t (const NodePtr &)> getDepth = [&](const NodePtr &node) -> size_t
@@ -73,7 +73,7 @@ namespace TestUtils
                 }
                 else
                 {
-                    std::cout << std:setw(digits) << std::right << queue.front() -> getValue() << space;
+                    std::cout << std::setw(digits) << std::right << queue.front() -> getValue() << space;
                     childs.push(queue.front() -> getLeft());
                     childs.push(queue.front() -> getRight());
                 }
@@ -82,16 +82,16 @@ namespace TestUtils
             std::cout << std::endl;
             queue.swap(childs);
             size /= 2;
-        }while (size > 0)
+        }while (size > 0);
     }
 
     // The function treeFromArray from the task 4.2 helps us to fill test trees.
-    template <typename T, bool NodeWithParent = false, template <typename, bool> class N = node>
+    template <typename T, bool NodeWithParent = false, template <typename, bool> class N = Node>
     auto treeFromArray(const T* array, size_t size)
     {
         using NodePtr = typename Tree<T, NodeWithParent, N>::NodePtr;
 
-        std::function<NodePtr, (const T *, const NodePtr &, int, int)> subtreeFromArray = [&subtreeFromArray](const T* array, const NodePtr &parent, int start, int end) -> NodePtr
+        std::function<NodePtr (const T *, const NodePtr &, int, int)> subtreeFromArray = [&subtreeFromArray](const T* array, const NodePtr &parent, int start, int end) -> NodePtr
         {
             if (end < start)
                 return nullptr;
@@ -108,13 +108,13 @@ namespace TestUtils
         return tree;
     }
 
-    template <typename T, bool NodeWithParent = false, template<typename, bool> class N = node>
+    template <typename T, bool NodeWithParent = false, template<typename, bool> class N = Node>
     auto treeFromArray(std::initializer_list<T> array)
     {
         return treeFromArray<T, NodeWithParent, N>(array.begin(), array.size());
     }
 
-    template <typename T, bool NodeWithParent = false, template<typename, bool> class N = node>
+    template <typename T, bool NodeWithParent = false, template<typename, bool> class N = Node>
     auto getSampleTree(size_t nodeCount)
     {
         std::vector<T> v(nodeCount);
