@@ -29,7 +29,7 @@ namespace TestUtils
         using NodePtr = typename Tree<T, NodeWithParent, Node>::NodePtr;
         T minValue = std::numeric_limits<T>::max(), maxValue = std::numeric_limits<T>::min();
 
-        // Lambda function is used to hide it form externall access
+        // Lambda function is used to hide it from externall access
         std::function<size_t (const NodePtr &)> getDepth = [&](const NodePtr &node) -> size_t
         {
             if (!node)
@@ -58,7 +58,7 @@ namespace TestUtils
         std::cout << "Tree:" << std::endl;
 
         do {
-            // space bwtween nodes
+            // space between nodes
             std::string space((size - 1) * (placeholder.length() + 1) + 1, ' ');
 
             //margin
@@ -104,7 +104,7 @@ namespace TestUtils
         };
 
         Tree<T, NodeWithParent, N> tree;
-        tree.setRoot(subtreeFromArray(&array, nullptr, 0, size - 1));
+        tree.setRoot(subtreeFromArray(&array[0], nullptr, 0, size - 1));
         return tree;
     }
 
@@ -119,7 +119,7 @@ namespace TestUtils
     {
         std::vector<T> v(nodeCount);
         std::iota(std::begin(v), std::end(v), 0);    // Fill with 0, 1, ..., nodeCount - 1.
-        return treeFromArray<T, NodeWithParent, N>(&v[0], v.size(0));
+        return treeFromArray<T, NodeWithParent, N>(&v[0], v.size());
     }
 }
 
