@@ -15,7 +15,7 @@ bool checkNode(const NodePtr<T> &node, const T *minValue, const T *maxValue)
     // 节点为空
     if (!node)
         return true;
-
+    // 当前节点的值小于
     if (minValue && node -> getValue() <= *minValue)
         return false;
     if (maxValue && node -> getValue() > *maxValue)
