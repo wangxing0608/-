@@ -42,21 +42,25 @@ NodePtr<T> findCommonAncestor(const Tree<T> &tree, const NodePtr<T> &one, const 
 
     auto startNode = tree.getRoot();
 
+    // 节点one没有在以root为根的二叉树中
     auto firstResult = findNodeFrom<T>(startNode, one);
     if (firstResult == NotFound)
         return nullptr;
 
+    // 节点two没有在以root为根的二叉树中
     auto secondResult = findNodeFrom<T>(startNode, two);
     if (secondResult == NotFound)
         return nullptr;
 
+    // 如果one和two两个节点同时出现在以startNode为根的左子树或右子树中,递归向下寻找
     while (firstResult == secondResult)
     {
+        // 在startNode的左子树或右子树中递归寻找
         startNode = (firstResult == FoundLeft) ? startNode -> getLeft() : startNode -> getRight();
         firstResult = findNodeFrom<T>(startNode, one);
         secondResult = findNodeFrom<T>(startNode, two);
     }
-    
+    // one和two节点分别出现在startNode节点的左右子树中,则共同祖先节点为startNode
     return startNode;
 }
 
