@@ -10,12 +10,12 @@
 #include "treenodeiterator.h"
 
 
-enum
+enum FindResult
 {
-    NotFound;        // node not found in subtree
-    FoundLeft;       // node found in left subtree
-    FoundRight;      // node found in right subtree
-    FoundEqual;      // node is subtree root
+    NotFound,        // node not found in subtree
+    FoundLeft,       // node found in left subtree
+    FoundRight,      // node found in right subtree
+    FoundEqual      // node is subtree root
 };
 
 template <typename T>
@@ -28,7 +28,7 @@ FindResult findNodeFrom(const NodePtr<T> &startNode, const NodePtr<T> &node)
 
     if (findNodeFrom<T>(startNode -> getLeft(), node) != NotFound)
         return FoundLeft;
-    else if (findNodeFrom(startNode -> getRight(), node) != NotFound)
+    else if (findNodeFrom<T>(startNode -> getRight(), node) != NotFound)
         return FoundRight;
 
     return NotFound;
@@ -56,6 +56,8 @@ NodePtr<T> findCommonAncestor(const Tree<T> &tree, const NodePtr<T> &one, const 
         firstResult = findNodeFrom<T>(startNode, one);
         secondResult = findNodeFrom<T>(startNode, two);
     }
+    
+    return startNode;
 }
 
 int main()
@@ -71,17 +73,17 @@ int main()
         for (auto two : tree)
         {
             if (two == tree.getRoot() || two == one)
-                continue;     // it it not interesting;
+                continue;     // it is not interesting
 
             auto ancestor = findCommonAncestor<int>(tree, one, two);
-            std::cout << one -> getValue() << ", " << two -> getValue() << "<-- ";
+            std::cout << one -> getValue() << ", " << two -> getValue() << " <-- ";
             std::cout << (ancestor ? std::to_string(ancestor -> getValue()) : "Not Found") << std::endl;
         }
 
         // Test nodes of different trees
         auto tree2 = TestUtils::getSampleTree<int>(7);
         auto node1 = tree.getRoot() -> getLeft() -> getRight();
-        auto node2 = tree.getRoot() -> getRight() -> getLeft();
+        auto node2 = tree2.getRoot() -> getRight() -> getLeft();
         auto ancestor = findCommonAncestor<int>(tree, node1, node2);
         std::cout << "Nodes below are of different trees:\n";
         std::cout << node1 -> getValue() << ", " << node2 -> getValue() << " <-- ";
