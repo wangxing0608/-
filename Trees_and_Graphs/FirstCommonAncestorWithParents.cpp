@@ -57,12 +57,14 @@ NodePtr<T, true> findCommonAncestor(const Tree<T, true> &tree, NodePtr<T, true> 
         std::swap(one, two);   // that is why we pass 'one' and 'two' arguments by values
     }
 
+    // depthR为二叉树中较长路径的节点,将它向前移动到两个节点路径长度一致
     while (depthR != depthL)
     {
         two = two -> getParent();
         --depthR;
     }
 
+    // 求两个相等长度的链表序列的公共交点,即为第一个公共祖先节点
     while (one != two)
     {
         one = one -> getParent();
